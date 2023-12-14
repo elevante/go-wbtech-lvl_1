@@ -9,7 +9,7 @@ type Human struct {
 }
 
 type Action struct {
-	Human Human
+	Human
 }
 
 func (h *Human) Run() {
@@ -22,6 +22,6 @@ func main() {
 	h.Run()
 	fmt.Println(h.IsRun)
 	a := &Action{}
-	a.Human.Run()
-	fmt.Println(a.Human.IsRun)
+	a.Run()
+	fmt.Println(a.IsRun)
 }
