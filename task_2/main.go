@@ -26,7 +26,6 @@ func main() {
 	for result := range results {
 		fmt.Println(result)
 	}
-
 }
 
 func square(value int) int {
