@@ -2,9 +2,12 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"fmt"
 	"os"
+	"os/signal"
 	"strconv"
+	"syscall"
 	"time"
 )
 
@@ -28,29 +31,51 @@ func main() {
 	var data Data
 	data.Read()
 
-	const jobsCount = 50
-	jobs := make(chan int, jobsCount)
-	results := make(chan int, jobsCount)
+	jobs := make(chan int)
+	results := make(chan int)
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	for i := 0; i < data.WorkerCount; i++ {
-		go worker(i+1, jobs, results)
+		go worker(ctx, i+1, jobs, results)
 	}
 
-	for i := 0; i < jobsCount; i++ {
-		jobs <- i + 1
-	}
+	go func() {
+		for i := 0; ; i++ {
+			jobs <- i + 1
+			time.Sleep(time.Second)
+		}
+	}()
 
-	close(jobs)
-
-	for i := 0; i < jobsCount; i++ {
+	for i := 0; ; i++ {
 		fmt.Printf("result #%d : value = %d\n", i+1, <-results)
 	}
+
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-c
+		fmt.Println("close")
+		cancel()
+		os.Exit(0)
+	}()
+
 }
 
-func worker(id int, jobs <-chan int, results chan<- int) {
-	for j := range jobs {
-		time.Sleep(time.Second)
-		fmt.Printf("worker #%d finished\n", id)
-		results <- j
+func worker(ctx context.Context, id int, jobs <-chan int, results chan<- int) {
+
+	for {
+		select {
+		case j, ok := <-jobs:
+			if !ok {
+				return
+			}
+			time.Sleep(time.Second)
+			fmt.Printf("worker #%d finished\n", id)
+			results <- j
+		case <-ctx.Done():
+			return
+		}
 	}
 }
