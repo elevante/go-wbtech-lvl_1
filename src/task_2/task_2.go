@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	var array = [5]int{2, 4, 6, 8, 10}
+	squares := outputSquares([]int{2, 4, 6, 8, 10})
+	fmt.Println(squares)
+}
+
+func outputSquares(array []int) []int {
 	var wg sync.WaitGroup
 	results := make(chan int, len(array))
 
@@ -23,9 +27,11 @@ func main() {
 		close(results)
 	}()
 
+	squares := make([]int, 0, len(array))
 	for result := range results {
-		fmt.Println(result)
+		squares = append(squares, result)
 	}
+	return squares
 }
 
 func square(value int) int {
