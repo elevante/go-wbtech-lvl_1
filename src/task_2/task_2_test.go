@@ -52,34 +52,34 @@ func TestSquare(t *testing.T) {
 
 func TestOutputSquares(t *testing.T) {
 	testTable := []struct {
-		numbers  []int
-		expected []int
+		numbers []int
+		expect  []int
 	}{
 		{
-			numbers:  []int{4, 6, 8, 9, 10, 20},
-			expected: []int{16, 36, 64, 81, 100, 400},
+			numbers: []int{4, 6, 8, 9, 10, 20},
+			expect:  []int{16, 36, 64, 81, 100, 400},
 		},
 		{
 
-			numbers:  []int{500, 600, 800, 900, 100, 200},
-			expected: []int{250000, 360000, 640000, 810000, 10000, 40000},
+			numbers: []int{500, 600, 800, 900, 100, 200},
+			expect:  []int{250000, 360000, 640000, 810000, 10000, 40000},
 		},
 		{
-			numbers:  []int{-4, -6, 8, 9, -10, 20},
-			expected: []int{16, 36, 64, 81, 100, 400},
+			numbers: []int{-4, -6, 8, 9, -10, 20},
+			expect:  []int{16, 36, 64, 81, 100, 400},
 		},
 		{
-			numbers:  []int{},
-			expected: []int{},
+			numbers: []int{},
+			expect:  []int{},
 		},
 	}
 
 	for _, testCase := range testTable {
 		squares := outputSquares(testCase.numbers)
 
-		if pkg.CompareArrays(squares, testCase.expected) == false {
-			t.Errorf("Incorrect result. Expected %d, got%d",
-				testCase.expected,
+		if pkg.CompareArrays(squares, testCase.expect) == false {
+			t.Errorf("Incorrect result. Expect %d, got%d",
+				testCase.expect,
 				squares)
 
 		}
