@@ -9,42 +9,42 @@ func TestSquare(t *testing.T) {
 		t.Parallel()
 		t.Log("simple")
 		var x = 2
-		expected := 4
+		expect := 4
 
 		result := square(x)
 
-		if result != expected {
+		if result != expect {
 			t.Errorf("Incorrect result. Expect %d, got%d",
 				result,
-				expected)
+				expect)
 		}
 	})
 	t.Run("medium", func(t *testing.T) {
 		t.Parallel()
 		t.Log("medium")
 		var x = 550
-		expected := 302500
+		expect := 302500
 
 		result := square(x)
 
-		if result != expected {
+		if result != expect {
 			t.Errorf("Incorrect result. Expect %d, got%d",
 				result,
-				expected)
+				expect)
 		}
 	})
 	t.Run("negative", func(t *testing.T) {
 		t.Parallel()
 		t.Log("negative")
 		var x = -5
-		expected := 25
+		expect := 25
 
 		result := square(x)
 
-		if result != expected {
+		if result != expect {
 			t.Errorf("Incorrect result. Expect %d, got%d",
 				result,
-				expected)
+				expect)
 		}
 	})
 }

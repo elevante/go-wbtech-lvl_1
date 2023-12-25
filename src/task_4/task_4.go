@@ -15,7 +15,7 @@ type Data struct {
 	WorkerCount int
 }
 
-func (d *Data) Read() {
+func (d *Data) read() int {
 	input := bufio.NewScanner(os.Stdin)
 	fmt.Println("Введите число воркеров: ")
 	input.Scan()
@@ -23,13 +23,15 @@ func (d *Data) Read() {
 	if err != nil {
 		fmt.Println("Invalid value entered")
 	} else {
+		d.WorkerCount = value
 	}
-	d.WorkerCount = value
+
+	return d.WorkerCount
 }
 
 func main() {
 	var data Data
-	data.Read()
+	data.read()
 
 	jobs := make(chan int)
 	results := make(chan int)
