@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	var array = [5]int{2, 4, 6, 8, 10}
+	fmt.Println(outputSumSquares([]int{2, 4, 6, 8, 10}))
+}
+
+func outputSumSquares(array []int) int {
 	var sum int
 	var wg sync.WaitGroup
 	results := make(chan int, len(array))
@@ -25,9 +28,9 @@ func main() {
 	}()
 
 	for result := range results {
-		sum = +result
+		sum += result
 	}
-	fmt.Println(sum)
+	return sum
 }
 
 func square(value int) int {
