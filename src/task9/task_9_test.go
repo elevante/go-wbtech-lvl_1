@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-wbtech-lvl_1/src/pkg"
+	"go-wbtech-lvl_1/pkg"
 	"testing"
 )
 
