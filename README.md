@@ -37,3 +37,4 @@ PASS
 coverage: 88.9% of statements
 ok      go-wbtech-lvl_1/src/task_2      4.037s
 ```
+Tests are in tasks 2, 3, 9, 11
