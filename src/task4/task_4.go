@@ -17,7 +17,7 @@ type Data struct {
 
 func (d *Data) read() int {
 	input := bufio.NewScanner(os.Stdin)
-	fmt.Println("Введите число воркеров: ")
+	fmt.Println("Enter the number of workers: ")
 	input.Scan()
 	value, err := strconv.Atoi(input.Text())
 	if err != nil {
